@@ -68,6 +68,7 @@
       text-align: center;
       transition: all 0.3s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
     .human-card:hover {
@@ -91,6 +92,97 @@
       color: #555;
     }
 
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      overflow: auto;
+    }
+
+    .modal-content {
+      position: relative;
+      background: white;
+      margin: 10% auto;
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 20px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+      animation: modalopen 0.4s;
+    }
+
+    @keyframes modalopen {
+      from {opacity: 0; transform: translateY(-60px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #6a11cb;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.8em;
+      margin: 0;
+    }
+
+    .detail-row {
+      margin-bottom: 15px;
+      display: flex;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      width: 150px;
+      color: #555;
+    }
+
+    .detail-value {
+      flex: 1;
+      color: #333;
+    }
+
+    .reporter-section {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+    }
+
+    .reporter-title {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      color: #2575fc;
+    }
+
     .male { border-top: 6px solid #2980b9; }
     .female { border-top: 6px solid #e84393; }
     .others { border-top: 6px solid #8e44ad; }
@@ -107,52 +199,182 @@
       <button onclick="filterHumans('male')">Male</button>
       <button onclick="filterHumans('female')">Female</button>
       <button onclick="filterHumans('others')">Others</button>
-      <button onclick="filterHumans('person-with-disability')">Person with Disability</button> <!-- Updated filter button -->
+      <button onclick="filterHumans('person-with-disability')">Person with Disability</button>
     </div>
 
     <div class="humans-grid" id="humans">
       <!-- Abstract/Styled Icon Cards -->
-      <div class="human-card male">
+      <div class="human-card male" data-id="1">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="icon" alt="Male Icon">
         <h3>Adult Male</h3>
         <p>Blue hoodie, last seen near park entrance.</p>
       </div>
 
-      <div class="human-card female">
+      <div class="human-card female" data-id="2">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" class="icon" alt="Female Icon">
         <h3>Young Woman</h3>
         <p>Wearing white dress, long brown hair.</p>
       </div>
 
-      <div class="human-card others">
+      <div class="human-card others" data-id="3">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140061.png" class="icon" alt="Other Gender Icon">
         <h3>Non-Binary</h3>
         <p>Green jacket, headphones, calm.</p>
       </div>
 
-      <div class="human-card male">
+      <div class="human-card male" data-id="4">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140039.png" class="icon" alt="Bearded Man Icon">
         <h3>Bearded Man</h3>
         <p>Black coat, found near gate 3 area.</p>
       </div>
 
-      <div class="human-card female">
+      <div class="human-card female" data-id="5">
         <img src="https://cdn-icons-png.flaticon.com/512/4140/4140073.png" class="icon" alt="Old Woman Icon">
         <h3>Elderly Lady</h3>
         <p>Wearing scarf and using cane.</p>
       </div>
 
-      <!-- Updated "Person with Disability" card -->
-      <div class="human-card person-with-disability">
-        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140095.png" class="icon" alt="Person with Disability Icon"> <!-- Updated icon -->
+      <div class="human-card person-with-disability" data-id="6">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140095.png" class="icon" alt="Person with Disability Icon">
         <h3>Person with Disability</h3>
         <p>Wheelchair user, helpful and alert.</p>
       </div>
+    </div>
+  </div>
 
+  <!-- Modal for detailed view -->
+  <div id="humanModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <div class="modal-header">
+        <img id="modalIcon" src="" alt="Human Icon" class="modal-icon">
+        <h2 id="modalTitle" class="modal-title"></h2>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Status:</div>
+        <div id="statusDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Description:</div>
+        <div id="descriptionDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Location:</div>
+        <div id="locationDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Time:</div>
+        <div id="timeDetail" class="detail-value"></div>
+      </div>
+
+      <div class="reporter-section">
+        <h3 class="reporter-title">Reported By</h3>
+        <div class="detail-row">
+          <div class="detail-label">Name:</div>
+          <div id="reporterName" class="detail-value"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Contact:</div>
+          <div id="reporterContact" class="detail-value"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Reported On:</div>
+          <div id="reportDate" class="detail-value"></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
+    // Human details database
+    const humanData = {
+      "1": {
+        name: "Adult Male",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
+        status: "Lost",
+        description: "Male in his 30s, approximately 5'10\" tall with short brown hair. Last seen wearing a blue hoodie, black jeans, and white sneakers.",
+        location: "Near the main park entrance, by the fountain area",
+        time: "April 22, 2025 around 3:30 PM",
+        reporter: {
+          name: "Sarah Johnson",
+          contact: "sarah.j@email.com | 555-123-4567",
+          date: "April 22, 2025 at 5:15 PM"
+        }
+      },
+      "2": {
+        name: "Young Woman",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140051.png",
+        status: "Lost",
+        description: "Female in her 20s with long brown hair. Wearing a white summer dress with floral pattern and sandals. Carrying a small blue handbag.",
+        location: "Food court area, section B",
+        time: "April 23, 2025 around 1:15 PM",
+        reporter: {
+          name: "Michael Cheng",
+          contact: "m.cheng@email.com | 555-987-6543",
+          date: "April 23, 2025 at 2:30 PM"
+        }
+      },
+      "3": {
+        name: "Non-Binary Person",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140061.png",
+        status: "Found",
+        description: "Person in their mid-20s with short dyed blue hair. Wearing a green jacket, black t-shirt and headphones. Appears calm but disoriented.",
+        location: "Near the west exit",
+        time: "April 23, 2025 around 11:00 AM",
+        reporter: {
+          name: "Alex Rivera",
+          contact: "arivera@email.com | 555-789-0123",
+          date: "April 23, 2025 at 11:20 AM"
+        }
+      },
+      "4": {
+        name: "Bearded Man",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140039.png",
+        status: "Found",
+        description: "Male in his 40s with a full beard. Wearing a black coat, gray sweater and dark jeans. Has glasses and speaks with a slight accent.",
+        location: "Gate 3 area, near the information booth",
+        time: "April 22, 2025 around 6:45 PM",
+        reporter: {
+          name: "Lisa Thompson",
+          contact: "lthompson@email.com | 555-456-7890",
+          date: "April 22, 2025 at 7:00 PM"
+        }
+      },
+      "5": {
+        name: "Elderly Lady",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140073.png",
+        status: "Lost",
+        description: "Woman in her 70s with gray hair in a bun. Wearing a purple scarf, beige coat and using a wooden cane. May appear confused.",
+        location: "Near the east garden benches",
+        time: "April 23, 2025 around 10:30 AM",
+        reporter: {
+          name: "Robert Wilson",
+          contact: "rwilson@email.com | 555-234-5678",
+          date: "April 23, 2025 at 11:45 AM"
+        }
+      },
+      "6": {
+        name: "Person with Disability",
+        icon: "https://cdn-icons-png.flaticon.com/512/4140/4140095.png",
+        status: "Found",
+        description: "Person in their 30s using a wheelchair. Wearing a red sweater and khaki pants. Alert and helpful but unable to locate their group.",
+        location: "Main hall, near the restrooms",
+        time: "April 22, 2025 around 4:15 PM",
+        reporter: {
+          name: "Jennifer Parker",
+          contact: "jparker@email.com | 555-345-6789",
+          date: "April 22, 2025 at 4:45 PM"
+        }
+      }
+    };
+
+    // Filter humans by category
     function filterHumans(category) {
       const cards = document.querySelectorAll('.human-card');
       const buttons = document.querySelectorAll('.categories button');
@@ -167,6 +389,51 @@
       else if (category === 'all') buttons[0].classList.add('active');
     }
 
+    // Get the modal
+    const modal = document.getElementById("humanModal");
+    
+    // Get the <span> element that closes the modal
+    const closeBtn = document.getElementsByClassName("close-btn")[0];
+    
+    // Add click event to all human cards
+    document.querySelectorAll('.human-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const humanId = this.getAttribute('data-id');
+        const human = humanData[humanId];
+        
+        if (human) {
+          // Populate modal with data
+          document.getElementById('modalIcon').src = human.icon;
+          document.getElementById('modalTitle').textContent = human.name;
+          document.getElementById('statusDetail').textContent = human.status;
+          document.getElementById('descriptionDetail').textContent = human.description;
+          document.getElementById('locationDetail').textContent = human.location;
+          document.getElementById('timeDetail').textContent = human.time;
+          
+          // Reporter info
+          document.getElementById('reporterName').textContent = human.reporter.name;
+          document.getElementById('reporterContact').textContent = human.reporter.contact;
+          document.getElementById('reportDate').textContent = human.reporter.date;
+          
+          // Display modal
+          modal.style.display = "block";
+        }
+      });
+    });
+    
+    // Close the modal when clicking the close button
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Initialize with all humans showing
     window.onload = () => filterHumans('all');
   </script>
 
