@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ - Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-top: 4px solid #ff6600;
+    }
+    h1 {
+      text-align: center;
+      color: #ff6600;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .faq-item {
+      margin-bottom: 20px;
+    }
+    .faq-item button {
+      width: 100%;
+      padding: 16px;
+      text-align: left;
+      font-size: 1.1rem;
+      color: #333;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .faq-item button:hover {
+      background-color: #ff6600;
+      color: white;
+      transform: scale(1.05);
+    }
+    .faq-answer {
+      padding: 15px 20px;
+      background-color: #f9f9f9;
+      border-left: 3px solid #ff6600;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+    .faq-answer.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .ask-question-section {
+      margin-top: 40px;
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .ask-question-section h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .ask-question-section input, 
+    .ask-question-section textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+
+    .ask-question-section button {
+      background-color: #ff6600;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .ask-question-section button:hover {
+      background-color: #cc5200;
+    }
+
+    .success-message {
+      color: green;
+      display: none;
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+
+    <!-- FAQ Items -->
+    <div class="faq-item">
+      <button class="accordion">How can I report a lost item?</button>
+      <div class="faq-answer">
+        <p>To report a lost item, click on the "Report Lost" button on our homepage. You will be prompted to fill out details about the item, including the category, location, and a description of the item.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="accordion">How do I know if someone found my item?</button>
+      <div class="faq-answer">
+        <p>Once your lost item is reported, you can monitor our website for any reports of similar items found. If a match is found, we will notify you via email or phone if provided.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="accordion">Can I upload a photo of the item I lost or found?</button>
+      <div class="faq-answer">
+        <p>Yes, both for reporting a lost or found item, you can upload a photo to help others identify it more easily.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="accordion">How long will it take for my report to be processed?</button>
+      <div class="faq-answer">
+        <p>Your report will be processed immediately after submission. However, it may take some time for someone to find your item, depending on the location and other factors.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="accordion">What should I do if I find an item that’s been reported lost?</button>
+      <div class="faq-answer">
+        <p>If you find an item that’s been reported lost, go to the "Report Found" section and submit the details of the item. Make sure to include as much information as possible to help the owner identify it.</p>
+      </div>
+    </div>
+
+    <!-- New FAQ Items -->
+    <div class="faq-item">
+      <button class="accordion">Is there a limit to how many lost items I can report?</button>
+      <div class="faq-answer">
+        <p>No, there is no limit. You can report as many lost items as needed, but please make sure the details are accurate for effective searching.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="accordion">How can I contact the support team?</button>
+      <div class="faq-answer">
+        <p>If you need assistance, you can contact our support team by visiting the "Contact Us" section on the website. We are here to help!</p>
+      </div>
+    </div>
+
+    <!-- Ask a Question Section -->
+    <div class="ask-question-section">
+      <h2>Ask a Question</h2>
+      <p>If you didn’t find an answer to your question, feel free to submit it below:</p>
+      <form id="askQuestionForm">
+        <input type="text" id="questionTitle" name="questionTitle" placeholder="Your Question Title" required />
+        <textarea id="questionBody" name="questionBody" rows="4" placeholder="Your detailed question here..." required></textarea>
+        <button type="submit">Submit Question</button>
+      </form>
+      <p class="success-message" id="successMsg">🎉 Your question has been submitted successfully!</p>
+    </div>
+  </div>
+
+  <script>
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.classList.toggle("show");
+      });
+    }
+
+    // Handle form submission
+    const form = document.getElementById("askQuestionForm");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      form.reset();
+      setTimeout(() => successMsg.style.display = "none", 4000);
+    });
+  </script>
+
+</body>
+</html>

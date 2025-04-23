@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lost Items - Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffffee;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      color: #3c3c3c;
+      margin-bottom: 30px;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .categories button {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .categories button:hover,
+    .categories button.active {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      transform: scale(1.05);
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .item-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .item-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .icon {
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    .item-card h3 {
+      font-size: 1.2em;
+      color: #333;
+      margin: 10px 0 5px;
+    }
+
+    .item-card p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    .electronics { border-top: 6px solid #2980b9; }
+    .jewelry { border-top: 6px solid #e84393; }
+    .clothing { border-top: 6px solid #8e44ad; }
+    .accessories { border-top: 6px solid #f39c12; }
+    .documents { border-top: 6px solid #27ae60; }
+    .others { border-top: 6px solid #f1c40f; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📦 Lost Items</h1>
+
+    <div class="categories">
+      <button onclick="filterItems('all')" class="active">All</button>
+      <button onclick="filterItems('electronics')">Electronics</button>
+      <button onclick="filterItems('jewelry')">Jewelry</button>
+      <button onclick="filterItems('clothing')">Clothing</button>
+      <button onclick="filterItems('accessories')">Accessories</button>
+      <button onclick="filterItems('documents')">Documents</button>
+      <button onclick="filterItems('others')">Others</button>
+    </div>
+
+    <div class="items-grid" id="items">
+      <!-- Lost Item Cards -->
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/1006/1006870.png" class="icon" alt="Laptop Icon">
+        <h3>Lost Laptop</h3>
+        <p>Silver MacBook, last seen at the library.</p>
+      </div>
+
+      <div class="item-card jewelry">
+        <img src="https://cdn-icons-png.flaticon.com/512/1156/1156515.png" class="icon" alt="Ring Icon">
+        <h3>Gold Ring</h3>
+        <p>Gold ring with a diamond, lost near the park fountain.</p>
+      </div>
+
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616547.png" class="icon" alt="Jacket Icon">
+        <h3>Leather Jacket</h3>
+        <p>Brown leather jacket, left at the coffee shop.</p>
+      </div>
+
+      <div class="item-card accessories">
+        <img src="https://cdn-icons-png.flaticon.com/512/1671/1671282.png" class="icon" alt="Glasses Icon">
+        <h3>Sunglasses</h3>
+        <p>Black Ray-Ban sunglasses, lost at the beach.</p>
+      </div>
+
+      <div class="item-card documents">
+        <img src="https://cdn-icons-png.flaticon.com/512/1484/1484333.png" class="icon" alt="Document Icon">
+        <h3>Passport</h3>
+        <p>Lost UK passport, found near airport security.</p>
+      </div>
+
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1519/1519570.png" class="icon" alt="Miscellaneous Icon">
+        <h3>Umbrella</h3>
+        <p>Black umbrella, found near the bus stop.</p>
+      </div>
+
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/1006/1006882.png" class="icon" alt="Smartphone Icon">
+        <h3>Smartphone</h3>
+        <p>Lost Samsung Galaxy, last seen at the mall.</p>
+      </div>
+
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/2161/2161442.png" class="icon" alt="Shirt Icon">
+        <h3>White Shirt</h3>
+        <p>Plain white shirt, left at the gym.</p>
+      </div>
+
+      <div class="item-card jewelry">
+        <img src="https://cdn-icons-png.flaticon.com/512/1156/1156516.png" class="icon" alt="Necklace Icon">
+        <h3>Gold Necklace</h3>
+        <p>Gold necklace with a heart pendant, lost near the park.</p>
+      </div>
+
+      <div class="item-card accessories">
+        <img src="https://cdn-icons-png.flaticon.com/512/877/877200.png" class="icon" alt="Watch Icon">
+        <h3>Wristwatch</h3>
+        <p>Silver wristwatch, found near the office building.</p>
+      </div>
+
+      <!-- Additional items for variety -->
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/1006/1006874.png" class="icon" alt="Tablet Icon">
+        <h3>Lost Tablet</h3>
+        <p>Black tablet, found near the cafe.</p>
+      </div>
+
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1519/1519573.png" class="icon" alt="Backpack Icon">
+        <h3>Backpack</h3>
+        <p>Black backpack with textbooks, lost in the subway.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function filterItems(category) {
+      const cards = document.querySelectorAll('.item-card');
+      const buttons = document.querySelectorAll('.categories button');
+
+      cards.forEach(card => {
+        card.style.display = (category === 'all' || card.classList.contains(category)) ? 'block' : 'none';
+      });
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(buttons).find(btn => btn.textContent.toLowerCase().includes(category));
+      if (activeBtn) activeBtn.classList.add('active');
+      else if (category === 'all') buttons[0].classList.add('active');
+    }
+
+    window.onload = () => filterItems('all');
+  </script>
+
+</body>
+</html>

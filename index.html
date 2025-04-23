@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lost&Found - Reconnect with Your Belongings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #3a6ea5;
+      --primary-dark: #004e98;
+      --secondary: #ff6b6b;
+      --accent: #ffe66d;
+      --light: #f7f9fc;
+      --dark: #2d3748;
+      --gray: #718096;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      color: var(--primary-dark);
+      font-weight: 800;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar .logo i {
+      color: var(--secondary);
+      animation: pulse 2s infinite;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .navbar ul li {
+      position: relative;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--dark);
+      transition: 0.3s;
+      padding: 8px 16px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar ul li a i {
+      font-size: 16px;
+      transition: transform 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(58, 110, 165, 0.3);
+    }
+
+    .navbar ul li a:hover i {
+      transform: translateY(-2px);
+    }
+
+    /* Hero section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1587560699334-bea93391dcef?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+    }
+
+    .hero-content {
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 60px;
+      color: white;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: white;
+      font-size: 22px;
+      margin-top: 15px;
+      max-width: 700px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      margin-top: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--secondary);
+      color: white;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      box-shadow: 0 4px 15px rgba(58, 110, 165, 0.4);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 8px 20px rgba(58, 110, 165, 0.5);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--dark);
+      box-shadow: 0 4px 15px rgba(255, 230, 109, 0.4);
+    }
+
+    .btn-accent:hover {
+      box-shadow: 0 8px 20px rgba(255, 230, 109, 0.5);
+    }
+
+    .hero-cta .btn {
+      margin: 0 10px;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 24px;
+      animation: float 2s infinite ease-in-out;
+      cursor: pointer;
+    }
+
+    /* Sections */
+    section {
+      padding: 100px 50px;
+      background-color: white;
+    }
+
+    section:nth-child(even) {
+      background-color: var(--light);
+    }
+
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .intro {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: center;
+      color: var(--gray);
+    }
+
+    .intro-features {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      text-align: center;
+      max-width: 300px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature i {
+      font-size: 50px;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .feature h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+    }
+
+    .feature p {
+      color: var(--gray);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Recently Lost Items */
+    .lost-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 60px;
+    }
+
+    .item-card {
+      width: 320px;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .item-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    .item-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: all 0.5s;
+    }
+
+    .item-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .item-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .item-card .info {
+      padding: 25px;
+    }
+
+    .item-card .info h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .item-card .info p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--primary);
+      font-size: 14px;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .view-more {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background-color: white;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .faq-question {
+      padding: 20px;
+      background-color: var(--light);
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .faq-question:hover {
+      background-color: rgba(58, 110, 165, 0.05);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 20px;
+      max-height: 200px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background-color: var(--light);
+    }
+
+    .contact-container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-info h3 {
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .contact-item i {
+      font-size: 24px;
+      color: var(--primary);
+      margin-right: 15px;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .contact-item span {
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(58, 110, 165, 0.2);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 60px 20px 20px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-logo h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo p {
+      line-height: 1.6;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 20px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .footer-links {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .footer-links-column {
+      min-width: 140px;
+    }
+
+    .footer-links-column h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .footer-links-column ul {
+      list-style: none;
+    }
+
+    .footer-links-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links-column a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-links-column a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+      
+      .section-title {
+        font-size: 32px;
+      }
+      
+      .hero h1 {
+        font-size: 48px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+      
+      .navbar ul {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: all 0.4s ease;
+      }
+      
+      .navbar ul.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+      }
+      
+      .hero h1 {
+        font-size: 36px;
+      }
+      
+      .hero p {
+        font-size: 18px;
+      }
+      
+      section {
+        padding: 60px 20px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+    /* Mobile menu */
+    .menu-toggle {
+      display: none;
+      color: var(--primary-dark);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Animations for content */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-map-marker-alt"></i>
+      Lost&Found
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul>
+      <li><a href="lost2.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+      <li><a href="lost4.html"><i class="fas fa-search"></i> Report Lost</a></li>
+      <li><a href="lost5.html"><i class="fas fa-hand-holding"></i> Report Found</a></li>
+      <li><a href="lost6.html"><i class="fas fa-question-circle"></i> FAQs</a></li>
+      <li><a href="lost7.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Reunite with Your Lost Items</h1>
+      <p>Your trusted community platform that connects people with their missing belongings through a simple and effective recovery system.</p>
+      <div class="hero-cta">
+        <a href="lost4.html" class="btn btn-secondary">Report Lost Item</a>
+        <a href="lost5.html" class="btn btn-primary">Report Found Item</a>
+      </div>
+    </div>
+    <div class="scroll-down">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="intro">
+    <h2 class="section-title fade-in">How It Works</h2>
+    <p class="fade-in">
+      Lost&Found is a community-powered platform dedicated to reuniting people with their lost possessions. Our simple yet powerful system connects those who've lost items with those who've found them, creating a network of mutual support.
+    </p>
+    <div class="intro-features">
+      <div class="feature fade-in">
+        <i class="fas fa-upload"></i>
+        <h3>Report an Item</h3>
+        <p>Quickly report lost or found items with our easy-to-use form. Add photos and details to help with identification.</p>
+      </div>
+      <div class="feature fade-in">
+        <i class="fas fa-bell"></i>
+        <h3>Get Notifications</h3>
+        <p>Receive instant alerts when someone reports an item matching your description or claims your found item.</p>
+      </div>
+      <div class="feature fade-in">
+        <i class="fas fa-handshake"></i>
+        <h3>Safe Reconnection</h3>
+        <p>Connect securely through our platform to arrange the return of items with privacy protection features.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently Lost -->
+  <section>
+    <h2 class="section-title fade-in">Recently Lost Items</h2>
+    <div class="lost-items">
+      <div class="item-card fade-in">
+        <div class="item-badge">Just Lost</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCRHwBBYlyMe_-ufWV8on3-PlZ0YVmKZ1w7w&s" alt="Lost Wallet">
+        <div class="info">
+          <h3>Black Leather Wallet</h3>
+          <p>Lost near Central Park on April 20. Contains ID and credit cards. Reward offered for return.</p>
+          <div class="item-meta">
+            <span><i class="fas fa-map-marker-alt"></i> Central Park</span>
+            <span><i class="far fa-clock"></i> 2 days ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-card fade-in">
+        <div class="item-badge">Urgent</div>
+        <img src="https://petzpark.com.au/cdn/shop/articles/Breeds_Thumbnails_4_1_833358e4-eda0-43b3-898f-297e33980ab4_900x.jpg?v=1742525599" alt="Lost Dog">
+        <div class="info">
+          <h3>Golden Retriever</h3>
+          <p>Missing from Sunset Blvd since April 21. Very friendly, responds to "Max". Microchipped and wearing a red collar.</p>
+          <div class="item-meta">
+            <span><i class="fas fa-map-marker-alt"></i> Sunset Blvd</span>
+            <span><i class="far fa-clock"></i> 1 day ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="item-card fade-in">
+        <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/backpack/h/s/k/-original-imagz5jzg5tnkg39.jpeg?q=90&crop=false" alt="Lost Bag">
+        <div class="info">
+          <h3>Blue Backpack</h3>
+          <p>Left on metro line M5 around 6 PM. Contains textbooks, laptop charger, and a water bottle with stickers.</p>
+          <div class="item-meta">
+            <span><i class="fas fa-map-marker-alt"></i> Metro Line M5</span>
+            <span><i class="far fa-clock"></i> 5 hours ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view-more fade-in">
+      <a href="lost9.html" class="btn btn-primary">View All Items</a>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2 class="section-title fade-in">Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq-item fade-in">
+        <div class="faq-question">
+          How do I report a lost item?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          To report a lost item, click on the "Report Lost" button in the navigation menu. Fill out the form with as many details as possible about your item, including when and where you last saw it, and any identifying features.
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question">
+          Is there a fee for using Lost&Found?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          No, our basic service is completely free. We believe in helping people reconnect with their belongings without any barriers. We do offer premium features for a small subscription fee that provides additional benefits like priority listings.
+        </div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question">
+          How are my personal details protected?
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          We take privacy seriously. Your contact information is never publicly displayed. When someone finds your item, they can contact you through our secure messaging system, and you decide if you want to share additional details.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2><i class="fas fa-map-marker-alt"></i> Lost&Found</h2>
+        <p>Helping communities reconnect with their lost belongings through a simple, secure, and effective platform.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-links-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="lost6.html">FAQs</a></li>
+            <li><a href="lost7.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-column">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="lost4.html">Report Lost Item</a></li>
+            <li><a href="lost5.html">Report Found Item</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Lost&Found. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.navbar ul');
+    
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+    }
+
+    // FAQ accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentNode;
+        item.classList.toggle('active');
+      });
+    });
+
+    // Scroll animation
+    const scrollDown = document.querySelector('.scroll-down');
+    
+    if (scrollDown) {
+      scrollDown.addEventListener('click', () => {
+        window.scrollTo({
+          top: window.innerHeight,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Fade in animations on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = () => {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', fadeInOnScroll);
+    window.addEventListener('load', fadeInOnScroll);
+  </script>
+</body>
+</html>

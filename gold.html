@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gold - Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffffee;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      color: #3c3c3c;
+      margin-bottom: 30px;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .categories button {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .categories button:hover,
+    .categories button.active {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      transform: scale(1.05);
+    }
+
+    .gold-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .gold-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .gold-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .icon {
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    .gold-card h3 {
+      font-size: 1.2em;
+      color: #333;
+      margin: 10px 0 5px;
+    }
+
+    .gold-card p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    .ring { border-top: 6px solid #f39c12; }
+    .necklace { border-top: 6px solid #e74c3c; }
+    .watch { border-top: 6px solid #8e44ad; }
+    .coin { border-top: 6px solid #f1c40f; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💰 Gold - Lost & Found</h1>
+
+    <div class="categories">
+      <button onclick="filterGold('all')" class="active">All</button>
+      <button onclick="filterGold('ring')">Ring</button>
+      <button onclick="filterGold('necklace')">Necklace</button>
+      <button onclick="filterGold('watch')">Watch</button>
+      <button onclick="filterGold('coin')">Coin</button>
+    </div>
+
+    <div class="gold-grid" id="gold">
+      <!-- Gold Item Cards -->
+      <div class="gold-card ring">
+        <img src="https://cdn-icons-png.flaticon.com/512/3999/3999232.png" class="icon" alt="Gold Ring Icon">
+        <h3>Gold Ring</h3>
+        <p>Lost near the fountain, engraved with initials "JD."</p>
+      </div>
+
+      <div class="gold-card necklace">
+        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177449.png" class="icon" alt="Gold Necklace Icon">
+        <h3>Gold Necklace</h3>
+        <p>Found near the beach, attached to a blue velvet pouch.</p>
+      </div>
+
+      <div class="gold-card watch">
+        <img src="https://cdn-icons-png.flaticon.com/512/2984/2984944.png" class="icon" alt="Gold Watch Icon">
+        <h3>Gold Watch</h3>
+        <p>Lost at the park, still ticking, with a leather strap.</p>
+      </div>
+
+      <div class="gold-card coin">
+        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991491.png" class="icon" alt="Gold Coin Icon">
+        <h3>Gold Coin</h3>
+        <p>Found at the museum, slightly tarnished with an old inscription.</p>
+      </div>
+
+      <div class="gold-card ring">
+        <img src="https://cdn-icons-png.flaticon.com/512/3999/3999225.png" class="icon" alt="Gold Ring Icon">
+        <h3>Gold Wedding Ring</h3>
+        <p>Lost near the old bookstore, very thin band.</p>
+      </div>
+
+      <div class="gold-card watch">
+        <img src="https://cdn-icons-png.flaticon.com/512/2984/2984942.png" class="icon" alt="Gold Watch Icon">
+        <h3>Gold Pocket Watch</h3>
+        <p>Found on the street, with intricate patterns on the cover.</p>
+      </div>
+
+      <div class="gold-card necklace">
+        <img src="https://cdn-icons-png.flaticon.com/512/3177/3177437.png" class="icon" alt="Gold Necklace Icon">
+        <h3>Gold Choker Necklace</h3>
+        <p>Lost at the party, delicate design with a heart-shaped pendant.</p>
+      </div>
+
+      <div class="gold-card coin">
+        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991503.png" class="icon" alt="Gold Coin Icon">
+        <h3>Gold Medallion Coin</h3>
+        <p>Found in the library, engraved with an ancient symbol.</p>
+      </div>
+
+      <div class="gold-card ring">
+        <img src="https://cdn-icons-png.flaticon.com/512/3999/3999223.png" class="icon" alt="Gold Ring Icon">
+        <h3>Gold Signet Ring</h3>
+        <p>Lost at the concert, engraved with initials "AP."</p>
+      </div>
+
+      <div class="gold-card watch">
+        <img src="https://cdn-icons-png.flaticon.com/512/2984/2984946.png" class="icon" alt="Gold Watch Icon">
+        <h3>Gold Wristwatch</h3>
+        <p>Found near the cafe, shiny and new-looking, with a metal strap.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterGold(category) {
+      const cards = document.querySelectorAll('.gold-card');
+      const buttons = document.querySelectorAll('.categories button');
+
+      cards.forEach(card => {
+        card.style.display = (category === 'all' || card.classList.contains(category)) ? 'block' : 'none';
+      });
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(buttons).find(btn => btn.textContent.toLowerCase().includes(category));
+      if (activeBtn) activeBtn.classList.add('active');
+      else if (category === 'all') buttons[0].classList.add('active');
+    }
+
+    window.onload = () => filterGold('all');
+  </script>
+
+</body>
+</html>

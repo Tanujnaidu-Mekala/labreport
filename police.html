@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Police Station - Lost & Found Items</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f0e68c, #98c9e3);
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffffee;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3em;
+      color: #3c3c3c;
+      margin-bottom: 30px;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .categories button {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .categories button:hover,
+    .categories button.active {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      transform: scale(1.05);
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .item-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .item-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .icon {
+      height: 100px;
+      margin-bottom: 15px;
+    }
+
+    .item-card h3 {
+      font-size: 1.2em;
+      color: #333;
+      margin: 10px 0 5px;
+    }
+
+    .item-card p {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    .electronics { border-top: 6px solid #2980b9; }
+    .clothing { border-top: 6px solid #e84393; }
+    .keys { border-top: 6px solid #8e44ad; }
+    .others { border-top: 6px solid #f39c12; }
+
+    @media (max-width: 768px) {
+      .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏢 Police Station  items </h1>
+
+    <div class="categories">
+      <button onclick="filterItems('all')" class="active">All</button>
+      <button onclick="filterItems('electronics')">Electronics</button>
+      <button onclick="filterItems('clothing')">Clothing</button>
+      <button onclick="filterItems('keys')">Keys</button>
+      <button onclick="filterItems('others')">Other Items</button>
+    </div>
+
+    <div class="items-grid" id="items">
+      <!-- Electronics -->
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/742/742751.png" class="icon" alt="Laptop Icon">
+        <h3>Lost Laptop</h3>
+        <p>Black Dell laptop, found near Main Street.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/483/483061.png" class="icon" alt="Phone Icon">
+        <h3>Smartphone</h3>
+        <p>Found at the shopping mall entrance, black phone.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/564/564619.png" class="icon" alt="Tablet Icon">
+        <h3>Lost Tablet</h3>
+        <p>Apple tablet, found near the bus station.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/3539/3539426.png" class="icon" alt="Headphones Icon">
+        <h3>Wireless Headphones</h3>
+        <p>Black Bose headphones, found at the coffee shop.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/2133/2133230.png" class="icon" alt="Smartwatch Icon">
+        <h3>Smartwatch</h3>
+        <p>Silver Apple Watch, found in the park.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/3114/3114283.png" class="icon" alt="Camera Icon">
+        <h3>Digital Camera</h3>
+        <p>Canon DSLR, found at the train station.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/2408/2408688.png" class="icon" alt="Game Console Icon">
+        <h3>Game Console</h3>
+        <p>PlayStation 5, found in the shopping center.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/4816/4816360.png" class="icon" alt="USB Stick Icon">
+        <h3>USB Stick</h3>
+        <p>16GB USB stick, found near the library.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/4825/4825071.png" class="icon" alt="Bluetooth Speaker Icon">
+        <h3>Bluetooth Speaker</h3>
+        <p>Red JBL speaker, found at the park.</p>
+      </div>
+      <div class="item-card electronics">
+        <img src="https://cdn-icons-png.flaticon.com/512/3486/3486790.png" class="icon" alt="Laptop Charger Icon">
+        <h3>Laptop Charger</h3>
+        <p>Apple charger, found in the mall.</p>
+      </div>
+
+      <!-- Clothing -->
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764139.png" class="icon" alt="Clothing Icon">
+        <h3>Winter Jacket</h3>
+        <p>Blue jacket, left in the city park.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764100.png" class="icon" alt="Sweater Icon">
+        <h3>Green Sweater</h3>
+        <p>Wool sweater, found at the coffee shop.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764040.png" class="icon" alt="T-Shirt Icon">
+        <h3>White T-Shirt</h3>
+        <p>Plain white t-shirt, left in the gym.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764152.png" class="icon" alt="Jeans Icon">
+        <h3>Black Jeans</h3>
+        <p>Lost pair of black jeans, found on Main Street.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764025.png" class="icon" alt="Hat Icon">
+        <h3>Baseball Cap</h3>
+        <p>Black cap with a logo, found near the subway.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764136.png" class="icon" alt="Shoes Icon">
+        <h3>Running Shoes</h3>
+        <p>Nike running shoes, left at the sports field.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764193.png" class="icon" alt="Coat Icon">
+        <h3>Winter Coat</h3>
+        <p>Red coat, found in front of a restaurant.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764187.png" class="icon" alt="Scarf Icon">
+        <h3>Wool Scarf</h3>
+        <p>Black wool scarf, found in the park.</p>
+      </div>
+      <div class="item-card clothing">
+        <img src="https://cdn-icons-png.flaticon.com/512/3764/3764027.png" class="icon" alt="Jacket Icon">
+        <h3>Leather Jacket</h3>
+        <p>Brown leather jacket, found near the mall entrance.</p>
+      </div>
+
+      <!-- Keys -->
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/465/465640.png" class="icon" alt="Keys Icon">
+        <h3>Car Keys</h3>
+        <p>Found on the sidewalk near the police station.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615249.png" class="icon" alt="Keyring Icon">
+        <h3>Keyring</h3>
+        <p>Keyring with 3 keys, found at the bus stop.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615272.png" class="icon" alt="House Key Icon">
+        <h3>House Keys</h3>
+        <p>Lost house keys, found near the post office.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615265.png" class="icon" alt="Car Key Icon">
+        <h3>Car Key</h3>
+        <p>Silver Toyota key, found at the mall parking.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615268.png" class="icon" alt="Key Icon">
+        <h3>Single Key</h3>
+        <p>Single metal key, found near the city fountain.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615248.png" class="icon" alt="Bicycle Key Icon">
+        <h3>Bicycle Lock Key</h3>
+        <p>Bicycle lock key, found on the sidewalk.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615243.png" class="icon" alt="Lock Key Icon">
+        <h3>Lock Key</h3>
+        <p>Lock key found on North Street.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615282.png" class="icon" alt="Office Key Icon">
+        <h3>Office Keys</h3>
+        <p>Set of office keys found at the subway station.</p>
+      </div>
+      <div class="item-card keys">
+        <img src="https://cdn-icons-png.flaticon.com/512/3615/3615246.png" class="icon" alt="Mailbox Key Icon">
+        <h3>Mailbox Key</h3>
+        <p>Mailbox key found at the library entrance.</p>
+      </div>
+
+      <!-- Other Items -->
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1043/1043839.png" class="icon" alt="Wallet Icon">
+        <h3>Lost Wallet</h3>
+        <p>Brown wallet, containing ID cards and money.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1201/1201294.png" class="icon" alt="Umbrella Icon">
+        <h3>Umbrella</h3>
+        <p>Red umbrella, found near the train station.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/2896/2896647.png" class="icon" alt="Backpack Icon">
+        <h3>Backpack</h3>
+        <p>Black backpack, left at the supermarket.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1810/1810326.png" class="icon" alt="Sunglasses Icon">
+        <h3>Sunglasses</h3>
+        <p>Ray-Ban sunglasses, found in the park.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/3274/3274632.png" class="icon" alt="Watch Icon">
+        <h3>Gold Watch</h3>
+        <p>Gold wristwatch, left in the shopping mall.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/8888888.png" class="icon" alt="Ring Icon">
+        <h3>Gold Ring</h3>
+        <p>Gold ring with a diamond, found in the bus station.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/1840/1840907.png" class="icon" alt="Book Icon">
+        <h3>Lost Book</h3>
+        <p>Novel titled "The Silent Hour", found at the library.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/3136/3136484.png" class="icon" alt="Guitar Icon">
+        <h3>Guitar</h3>
+        <p>Acoustic guitar, found at the park.</p>
+      </div>
+      <div class="item-card others">
+        <img src="https://cdn-icons-png.flaticon.com/512/4219/4219671.png" class="icon" alt="Teddy Bear Icon">
+        <h3>Teddy Bear</h3>
+        <p>Large teddy bear, left at the playground.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterItems(category) {
+      const buttons = document.querySelectorAll('.categories button');
+      buttons.forEach(button => button.classList.remove('active'));
+
+      document.querySelector([onclick="filterItems('${category}')"]).classList.add('active');
+      const allItems = document.querySelectorAll('.item-card');
+      allItems.forEach(item => {
+        item.style.display = category === 'all' || item.classList.contains(category) ? 'block' : 'none';
+      });
+    }
+
+    // Initialize page with "All" items visible
+    filterItems('all');
+  </script>
+
+</body>
+</html>
