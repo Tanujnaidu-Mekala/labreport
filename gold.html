@@ -68,6 +68,7 @@
       text-align: center;
       transition: all 0.3s ease;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
     .gold-card:hover {
@@ -95,6 +96,99 @@
     .necklace { border-top: 6px solid #e74c3c; }
     .watch { border-top: 6px solid #8e44ad; }
     .coin { border-top: 6px solid #f1c40f; }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      overflow: auto;
+    }
+
+    .modal-content {
+      position: relative;
+      background: white;
+      margin: 10% auto;
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 20px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+      animation: modalopen 0.4s;
+    }
+
+    @keyframes modalopen {
+      from {opacity: 0; transform: translateY(-60px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #f39c12;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+      object-fit: contain;
+    }
+
+    .modal-title {
+      font-size: 1.8em;
+      margin: 0;
+      color: #333;
+    }
+
+    .detail-row {
+      margin-bottom: 15px;
+      display: flex;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      width: 150px;
+      color: #555;
+    }
+
+    .detail-value {
+      flex: 1;
+      color: #333;
+    }
+
+    .reporter-section {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+    }
+
+    .reporter-title {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      color: #f39c12;
+    }
   </style>
 </head>
 <body>
@@ -112,61 +206,61 @@
 
     <div class="gold-grid" id="gold">
       <!-- Gold Item Cards -->
-      <div class="gold-card ring">
+      <div class="gold-card ring" data-id="1">
         <img src="https://th.bing.com/th/id/OIP.eS--5tBS0EolgqVgWQhM0AHaHa?rs=1&pid=ImgDetMain" class="icon" alt="Gold Ring Icon">
         <h3>Gold Ring</h3>
         <p>Lost near the fountain, engraved with initials "JD."</p>
       </div>
 
-      <div class="gold-card necklace">
+      <div class="gold-card necklace" data-id="2">
         <img src="https://i.etsystatic.com/18244334/r/il/ccfe4c/4501198511/il_1080xN.4501198511_1th7.jpg" class="icon" alt="Gold Necklace Icon">
         <h3>Gold Necklace</h3>
         <p>Found near the beach, attached to a blue velvet pouch.</p>
       </div>
 
-      <div class="gold-card watch">
+      <div class="gold-card watch" data-id="3">
         <img src="https://1.bp.blogspot.com/-8qX3Lh6FhSs/WaXaovpDPqI/AAAAAAAA064/G8ZJvs3GioMuHUeTLBI1j95jHC9QwUc6QCK4BGAYYCw/s1600/rolex%2Bwatches%2Bfor%2Bmen%2Bwith%2Bdiamonds%2B%252Chublot%2Bwatches%2Bused%2B%252Cbuy%2Bnew%2B...-733938.jpg" class="icon" alt="Gold Watch Icon">
         <h3>Gold Watch</h3>
         <p>Lost at the park, still ticking, with a leather strap.</p>
       </div>
 
-      <div class="gold-card coin">
+      <div class="gold-card coin" data-id="4">
         <img src="https://th.bing.com/th/id/R.82dedfcf37f3a12d6159df9f838a5735?rik=Gi4tyrHRElLxgA&riu=http%3a%2f%2fmybrokencoin.com%2fwp-content%2fuploads%2f2016%2f03%2fGold-Coin.jpg&ehk=dY%2b2u6xXIrliG5OrI3Ni72AMLT9udIOyJsKb6G6KcFQ%3d&risl=&pid=ImgRaw&r=0" class="icon" alt="Gold Coin Icon">
         <h3>Gold Coin</h3>
         <p>Found at the museum, slightly tarnished with an old inscription.</p>
       </div>
 
-      <div class="gold-card ring">
+      <div class="gold-card ring" data-id="5">
         <img src="https://stylesatlife.com/wp-content/uploads/2017/03/Beautiful-Designer-Gold-Couple-Rings.jpg" class="icon" alt="Gold Ring Icon">
         <h3>Gold Wedding Ring</h3>
         <p>Lost near the old bookstore, very thin band.</p>
       </div>
 
-      <div class="gold-card watch">
+      <div class="gold-card watch" data-id="6">
         <img src="https://cdn.shopify.com/s/files/1/1242/0384/products/Gold18kdial.jpg?v=1579806625" class="icon" alt="Gold Watch Icon">
         <h3>Gold Pocket Watch</h3>
         <p>Found on the street, with intricate patterns on the cover.</p>
       </div>
 
-      <div class="gold-card necklace">
+      <div class="gold-card necklace" data-id="7">
         <img src="https://th.bing.com/th/id/OIP.1B0Bou4qg9aIm8hPIyckqAHaHa?rs=1&pid=ImgDetMain" class="icon" alt="Gold Necklace Icon">
         <h3>Gold Choker Necklace</h3>
         <p>Lost at the party, delicate design with a heart-shaped pendant.</p>
       </div>
 
-      <div class="gold-card coin">
+      <div class="gold-card coin" data-id="8">
         <img src="https://th.bing.com/th/id/OIP.orjaA0zhu3Y9x_JUhvByVwHaHM?rs=1&pid=ImgDetMain" class="icon" alt="Gold Coin Icon">
         <h3>Gold Medallion Coin</h3>
         <p>Found in the library, engraved with an ancient symbol.</p>
       </div>
 
-      <div class="gold-card ring">
+      <div class="gold-card ring" data-id="9">
         <img src="https://cdn11.bigcommerce.com/s-rmoyg9wwxo/images/stencil/1920w/products/578/1383/14k-yellow-gold-diamond-mens-oval-signet-ring__20368.1470890021.jpg?c=2" class="icon" alt="Gold Ring Icon">
         <h3>Gold Signet Ring</h3>
         <p>Lost at the concert, engraved with initials "AP."</p>
       </div>
 
-      <div class="gold-card watch">
+      <div class="gold-card watch" data-id="10">
         <img src="https://www.christies.com/img/LotImages/2010/GNV/2010_GNV_01376_0125_000(omega_a_fine_18k_gold_automatic_wristwatch_with_sweep_centre_seconds_h122432).jpg" class="icon" alt="Gold Watch Icon">
         <h3>Gold Wristwatch</h3>
         <p>Found near the cafe, shiny and new-looking, with a metal strap.</p>
@@ -174,7 +268,206 @@
     </div>
   </div>
 
+  <!-- Modal for detailed view -->
+  <div id="goldModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <div class="modal-header">
+        <img id="modalIcon" src="" alt="Gold Item Icon" class="modal-icon">
+        <h2 id="modalTitle" class="modal-title"></h2>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Status:</div>
+        <div id="statusDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Description:</div>
+        <div id="descriptionDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Value Estimate:</div>
+        <div id="valueDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Location:</div>
+        <div id="locationDetail" class="detail-value"></div>
+      </div>
+      
+      <div class="detail-row">
+        <div class="detail-label">Date/Time:</div>
+        <div id="timeDetail" class="detail-value"></div>
+      </div>
+
+      <div class="reporter-section">
+        <h3 class="reporter-title">Reported By</h3>
+        <div class="detail-row">
+          <div class="detail-label">Name:</div>
+          <div id="reporterName" class="detail-value"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Contact:</div>
+          <div id="reporterContact" class="detail-value"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Reported On:</div>
+          <div id="reportDate" class="detail-value"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Gold items database
+    const goldData = {
+      "1": {
+        name: "Gold Ring",
+        icon: "https://th.bing.com/th/id/OIP.eS--5tBS0EolgqVgWQhM0AHaHa?rs=1&pid=ImgDetMain",
+        status: "Lost",
+        description: "18K gold ring with a simple band design, engraved with initials 'JD' on the inside. No gemstones, approximately 5g in weight.",
+        value: "$650 - $800",
+        location: "Central Park near the main fountain",
+        time: "April 21, 2025 around 2:45 PM",
+        reporter: {
+          name: "John Doe",
+          contact: "johndoe@email.com | 555-123-4567",
+          date: "April 21, 2025 at 4:30 PM"
+        }
+      },
+      "2": {
+        name: "Gold Necklace",
+        icon: "https://i.etsystatic.com/18244334/r/il/ccfe4c/4501198511/il_1080xN.4501198511_1th7.jpg",
+        status: "Found",
+        description: "14K gold chain necklace with a small pendant. The necklace was found inside a blue velvet pouch. Chain length approximately 18 inches.",
+        value: "$400 - $550",
+        location: "Sunset Beach, near the volleyball courts",
+        time: "April 22, 2025 around 5:30 PM",
+        reporter: {
+          name: "Emma Wilson",
+          contact: "emma.w@email.com | 555-987-6543",
+          date: "April 22, 2025 at 6:15 PM"
+        }
+      },
+      "3": {
+        name: "Gold Watch",
+        icon: "https://1.bp.blogspot.com/-8qX3Lh6FhSs/WaXaovpDPqI/AAAAAAAA064/G8ZJvs3GioMuHUeTLBI1j95jHC9QwUc6QCK4BGAYYCw/s1600/rolex%2Bwatches%2Bfor%2Bmen%2Bwith%2Bdiamonds%2B%252Chublot%2Bwatches%2Bused%2B%252Cbuy%2Bnew%2B...-733938.jpg",
+        status: "Lost",
+        description: "Luxury gold men's watch with leather strap. Brand potentially Rolex or similar high-end brand. Still ticking when lost. Has significant sentimental value.",
+        value: "$5,000 - $10,000",
+        location: "City Park near the children's playground",
+        time: "April 23, 2025 around 10:30 AM",
+        reporter: {
+          name: "Robert Chen",
+          contact: "rchen@email.com | 555-789-0123",
+          date: "April 23, 2025 at 11:45 AM"
+        }
+      },
+      "4": {
+        name: "Gold Coin",
+        icon: "https://th.bing.com/th/id/R.82dedfcf37f3a12d6159df9f838a5735?rik=Gi4tyrHRElLxgA&riu=http%3a%2f%2fmybrokencoin.com%2fwp-content%2fuploads%2f2016%2f03%2fGold-Coin.jpg&ehk=dY%2b2u6xXIrliG5OrI3Ni72AMLT9udIOyJsKb6G6KcFQ%3d&risl=&pid=ImgRaw&r=0",
+        status: "Found",
+        description: "Antique gold coin, slightly tarnished. Has an inscription in Latin and the face of what appears to be a Roman emperor. Potentially of historical significance.",
+        value: "Unknown (requires expert appraisal)",
+        location: "National History Museum, Hall of Ancient Civilizations",
+        time: "April 20, 2025 around 3:15 PM",
+        reporter: {
+          name: "Professor James Miller",
+          contact: "j.miller@university.edu | 555-456-7890",
+          date: "April 20, 2025 at 4:00 PM"
+        }
+      },
+      "5": {
+        name: "Gold Wedding Ring",
+        icon: "https://stylesatlife.com/wp-content/uploads/2017/03/Beautiful-Designer-Gold-Couple-Rings.jpg",
+        status: "Lost",
+        description: "Thin band wedding ring, 14K gold. Part of a matching set. Has an inscription inside that reads 'Forever & Always, 06-15-2020'.",
+        value: "$350 - $500",
+        location: "Old Town Bookstore on 5th Street",
+        time: "April 22, 2025 around 1:20 PM",
+        reporter: {
+          name: "Sarah Thompson",
+          contact: "s.thompson@email.com | 555-234-5678",
+          date: "April 22, 2025 at 2:30 PM"
+        }
+      },
+      "6": {
+        name: "Gold Pocket Watch",
+        icon: "https://cdn.shopify.com/s/files/1/1242/0384/products/Gold18kdial.jpg?v=1579806625",
+        status: "Found",
+        description: "Antique gold pocket watch with intricate engraved patterns on the cover. Working condition, has a photo inside of an elderly couple. Appears to be a family heirloom.",
+        value: "$800 - $1,200",
+        location: "Main Street between 3rd and 4th Avenue",
+        time: "April 21, 2025 around 9:45 AM",
+        reporter: {
+          name: "Michael Garcia",
+          contact: "mgarcia@email.com | 555-345-6789",
+          date: "April 21, 2025 at 10:30 AM"
+        }
+      },
+      "7": {
+        name: "Gold Choker Necklace",
+        icon: "https://th.bing.com/th/id/OIP.1B0Bou4qg9aIm8hPIyckqAHaHa?rs=1&pid=ImgDetMain",
+        status: "Lost",
+        description: "Delicate gold choker necklace with a heart-shaped pendant. The pendant contains a small diamond in the center. Recently purchased as a gift.",
+        value: "$550 - $700",
+        location: "Grand Ballroom at the Riverside Hotel during the Spring Charity Gala",
+        time: "April 23, 2025 around 8:30 PM",
+        reporter: {
+          name: "Jennifer Lewis",
+          contact: "jlewis@email.com | 555-890-1234",
+          date: "April 23, 2025 at 10:15 PM"
+        }
+      },
+      "8": {
+        name: "Gold Medallion Coin",
+        icon: "https://th.bing.com/th/id/OIP.orjaA0zhu3Y9x_JUhvByVwHaHM?rs=1&pid=ImgDetMain",
+        status: "Found",
+        description: "Large gold medallion with an ancient Egyptian symbol (possibly the Eye of Horus). Appears to be quite old but in excellent condition. May be of historical value.",
+        value: "$1,000 - $3,000 (subject to expert appraisal)",
+        location: "Central Public Library, Reference Section",
+        time: "April 20, 2025 around 2:00 PM",
+        reporter: {
+          name: "Dr. Amelia Patel",
+          contact: "apatel@library.org | 555-567-8901",
+          date: "April 20, 2025 at 4:30 PM"
+        }
+      },
+      "9": {
+        name: "Gold Signet Ring",
+        icon: "https://cdn11.bigcommerce.com/s-rmoyg9wwxo/images/stencil/1920w/products/578/1383/14k-yellow-gold-diamond-mens-oval-signet-ring__20368.1470890021.jpg?c=2",
+        status: "Lost",
+        description: "Men's gold signet ring with the initials 'AP' engraved on the flat surface. Has a small diamond inset on one side. Family heirloom with significant sentimental value.",
+        value: "$900 - $1,500",
+        location: "Metropolitan Concert Hall during the evening symphony performance",
+        time: "April 22, 2025 around 9:00 PM",
+        reporter: {
+          name: "Alexander Parker",
+          contact: "aparker@email.com | 555-678-9012",
+          date: "April 22, 2025 at 11:30 PM"
+        }
+      },
+      "10": {
+        name: "Gold Wristwatch",
+        icon: "https://www.christies.com/img/LotImages/2010/GNV/2010_GNV_01376_0125_000(omega_a_fine_18k_gold_automatic_wristwatch_with_sweep_centre_seconds_h122432).jpg",
+        status: "Found",
+        description: "Luxury gold wristwatch with metal bracelet. Appears to be quite new with minimal wear. Has 'Omega' branding on the face and possibly a serial number on the back.",
+        value: "$3,000 - $6,000",
+        location: "Sunrise Cafe on Ocean Avenue",
+        time: "April 23, 2025 around 8:45 AM",
+        reporter: {
+          name: "Olivia Martinez",
+          contact: "omartinez@email.com | 555-789-0123",
+          date: "April 23, 2025 at 9:15 AM"
+        }
+      }
+    };
+
+    // Filter gold items by category
     function filterGold(category) {
       const cards = document.querySelectorAll('.gold-card');
       const buttons = document.querySelectorAll('.categories button');
@@ -189,6 +482,52 @@
       else if (category === 'all') buttons[0].classList.add('active');
     }
 
+    // Get the modal
+    const modal = document.getElementById("goldModal");
+    
+    // Get the <span> element that closes the modal
+    const closeBtn = document.getElementsByClassName("close-btn")[0];
+    
+    // Add click event to all gold cards
+    document.querySelectorAll('.gold-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const goldId = this.getAttribute('data-id');
+        const gold = goldData[goldId];
+        
+        if (gold) {
+          // Populate modal with data
+          document.getElementById('modalIcon').src = gold.icon;
+          document.getElementById('modalTitle').textContent = gold.name;
+          document.getElementById('statusDetail').textContent = gold.status;
+          document.getElementById('descriptionDetail').textContent = gold.description;
+          document.getElementById('valueDetail').textContent = gold.value;
+          document.getElementById('locationDetail').textContent = gold.location;
+          document.getElementById('timeDetail').textContent = gold.time;
+          
+          // Reporter info
+          document.getElementById('reporterName').textContent = gold.reporter.name;
+          document.getElementById('reporterContact').textContent = gold.reporter.contact;
+          document.getElementById('reportDate').textContent = gold.reporter.date;
+          
+          // Display modal
+          modal.style.display = "block";
+        }
+      });
+    });
+    
+    // Close the modal when clicking the close button
+    closeBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Initialize with all gold items showing
     window.onload = () => filterGold('all');
   </script>
 
